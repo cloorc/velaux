@@ -29,6 +29,7 @@ import type {
   CreatePolicyRequest,
   UpdatePolicyRequest,
 } from '../interface/application';
+import { Message } from '@b-design/ui';
 
 interface TraitQuery {
   appName: string;
@@ -291,7 +292,7 @@ export function terminateApplicationWorkflowRecord(params: {
   return get(
     `${application}/${appName}/workflows/${workflowName}/records/${recordName}/terminate`,
     {},
-  ).then((res) => res);
+  ).then((res) => res, (err) => Message.warning(`Workflow ${workflowName}@${recordName} unable to be terminated: ` + err));
 }
 
 export function getApplicationTriggers(params: { appName: string }) {

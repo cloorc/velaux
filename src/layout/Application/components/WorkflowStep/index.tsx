@@ -113,9 +113,11 @@ class WorkflowStep extends Component<Props, State> {
     terminateApplicationWorkflowRecord(params)
       .then((re) => {
         if (re) {
-          Message.success('Workflow terminated successfully');
+          Message.success(`Workflow ${workflowName}@${recordName} terminated successfully`);
           this.setState({ hiddenConfirm: true });
         }
+      }, (err) => {
+        Message.warning(`Unable to terminate ${workflowName}@${recordName}: ` + err);
       })
       .finally(() => {
         this.setState({ terminateLoading: false });
